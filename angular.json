@@ -25,9 +25,21 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/vendors/mdi/css/materialdesignicons.min.css",
+  "src/assets/vendors/ti-icons/css/themify-icons.css",
+ "src/assets/vendors/typicons/typicons.css",
+  "src/assets/vendors/simple-line-icons/css/simple-line-icons.css",
+ "src/assets/vendors/css/vendor.bundle.base.css",
+ "src/assets/vendors/feather/feather.css",
+ "src/assets/assets2/css/bootstrap.min.css",
+	"src/assets/assets2/css/splide.min.css",
+	"src/assets/assets2/css/slimselect.css",
+"src/assets/assets2/css/main.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js",
+            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {
@@ -94,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

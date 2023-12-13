@@ -1,0 +1,123 @@
+
+      <!-- creation de reservation -->
+  
+      <main class="main" *ngIf="reserveOn==true" style="margin-top: 0;">
+        <!-- home -->
+        <div class="home">
+            <!-- home bg -->
+            <div class="home__bg" style="position: fixed; margin-top: 10%;"></div>
+            <!-- end home bg -->
+
+            <div class="container">
+                <div class="row" style="margin-left: 9cm;">
+                    <div class="col-12">
+                        <div class="home__content" style="position: fixed;">
+                            <h1 class="home__title">Trouvez la voiture <br>qui vous convient</h1>
+                            <p class="home__text">{{message}}</p>
+
+                            <form class="home__search" #f=ngForm (submit)="GetByMarque(f)">
+                                <div class="home__group">
+                                    <label for="search1">Voiture, modèle ou marque</label>
+                                    <input type="text" name="modele" id="search1" placeholder="Quelle voiture Rechercher vous?" ngModel required #w="ngModel">
+                                </div>
+                                <section  *ngIf="w.invalid && w.touched">
+                                    <small  style="color: danger;" class="form-text text-muted">Modele is required</small>
+                                </section>
+                                <div class="home__group">
+                                    <label for="search2">Date de début</label>
+                                    <input type="date" name="datedeb" id="search2" placeholder="Date de début" ngModel required #t="ngModel">
+                                </div>
+                                <section  *ngIf="t.invalid && t.touched">
+                                    <small  style="color: danger;" class="form-text text-muted">Date de Début is required</small>
+                                </section>
+                                <div class="home__group">
+                                    <label for="search3">Date de fin</label>
+                                    <input type="date" name="datefin" id="search3" placeholder="Date de fin" ngModel required #p="ngModel">
+                                </div>
+                                <section  *ngIf="p.invalid && p.touched">
+                                    <small  style="color: danger;" class="form-text text-muted">Date de Fin is required</small>
+                                </section>
+                                
+                                <button type="submit"><span>Rechercher</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end home -->
+    </main>
+    <!-- end main content -->
+    <div  *ngIf="reserveOn==false">
+        <div *ngIf="listvoiture.length>1">
+    <div class="row" style="margin-left: 4cm; ">
+        <div class="col-12 col-md-6 col-xl-4" *ngFor="let car of listvoiture">
+            <div class="card" style="margin-top: 2cm; height: 400px;"> 
+                <img class="card-img-top" [src]="car.image" alt="Card image cap" style="object-fit: cover; height: 100%;"> 
+              
+                <div class="car__footer" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;">
+                    <span class="car__price">{{ car.modele }} </span>
+                    <span class="car__price">{{ car.prix }} <sub>/ jour</sub></span>
+                    <a href="#services"  (click)="setIdVoiture(car.matricule,car.id)" data-toggle="modal" data-target="#ReserverModal" class="car__more" ><span>Reserver</span></a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div *ngIf="listvoiture.length===1">
+        <div class="row" style="margin-left: 4cm; ">
+            <div class="col-12 col-md-6 col-xl-4" *ngFor="let car of listvoiture">
+                <div class="card" style="margin-top: 2cm; height: 420px;width: 420px;"> 
+                    <img class="card-img-top" [src]="car.image" alt="Card image cap" style="object-fit: cover; height: 100%;"> 
+                  
+                    <div class="car__footer" style="position: absolute; bottom: 0; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.8); padding: 10px;">
+                        <span class="car__price">{{ car.modele }} </span>
+                        <span class="car__price">{{ car.prix }} <sub>/ jour</sub></span>
+                        <a href="#services"  (click)="setIdVoiture(car.matricule,car.id)" data-toggle="modal" data-target="#ReserverModal" class="car__more" ><span>Reserver</span></a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- end car -->
+    </div>
+    
+
+    <div class="modal fade" id="ReserverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="card" style="height: 9cm;">   
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalCenterTitle" style="color: black; ">Reserver</h3>
+            </div>
+            <div class="modal-body">
+    
+              <form #r=ngForm>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="nompre" placeholder="Votre Nom et Prenom" ngModel required #p="ngModel">           
+                  </div>
+                <section  *ngIf="p.invalid && p.touched">
+                    <small  style="color: danger;" class="form-text text-muted">Vos coordonés est necéssaire </small>
+                </section>
+    
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="numtel" placeholder="Votre Numéro de teléphone" ngModel required minlength="8" maxlength="8" #t="ngModel"  > 
+                  </div>
+                  <section *ngIf="t.invalid && t.touched">
+                      <small  style="color: danger;"  *ngIf="t.errors?.['required']">Votre number phone is required .<br/></small>
+                      <small  style="color: danger;" *ngIf="t.errors?.['minlength']">Saisir un numéro valide<br/></small>
+                      <small  style="color: danger;" *ngIf="t.errors?.['maxlength']">Saisir un numéro valide<br/></small>
+                  </section>
+                  
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" (click)="Reserver(r)"  [disabled]="r.invalid" data-dismiss="modal" >Confirmer</button>
+                  </div>
+                  
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    <!-- fin creation de reservation -->

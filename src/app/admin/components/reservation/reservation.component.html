@@ -1,0 +1,41 @@
+<div class="col-lg-15 grid-margin stretch-card" style="margin-left: 6cm ;margin-top: 2cm;">
+    <div class="card" style="width: 35cm;">
+      <div class="card-body">
+        <h4 class="card-title">Réservations</h4>
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Id_Voiture</th>
+                <th>Utilisateur</th>
+                <th>Num_Tel</th>
+                <th>Voiture</th>
+                <th>Date réservation</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reservation of reservations">
+                <td>{{reservation.idvoiture}}</td>
+                <td>{{reservation.propretaire}}</td>
+                <td class="text-danger">{{reservation.NumTel}}</td>
+                <td>{{reservation.matricule}}</td>
+                <td class="text-danger"> {{reservation.dateReservation}}</td>
+      
+                <td *ngIf="reservation.Statut==false"><label class="badge badge-danger">Refuser</label></td>
+                <td *ngIf="reservation.Statut==true"><label class="badge badge-primary">Validé</label></td>
+                <td>
+                    <button class="badge badge-primary" (click)="setChangeStatut(reservation)">Accpeter</button>
+                    <button class="badge badge-danger"(click)="Delete(reservation)">Supprimer</button>
+                </td>
+              </tr>
+             
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
